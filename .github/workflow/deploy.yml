@@ -1,0 +1,26 @@
+name: reduxApp
+on:
+ push: 
+   branches:
+     - main
+jobs:
+ deploy:
+  runs-on: ubuntu-latest
+  strategy:
+   matrix:
+    node-version: [ "12.x" ]
+steps:
+  - uses: actions/checkout@v2
+  - name: use Node.js ${{ matrix.node-version }}
+    uses: actions/setup-node@v2
+    with:
+      node-version: ${{ matrix.node-version }}
+- name: install packages
+  run: npm install
+- name: Build page
+  run: npm run build
+- name: deploy to gh-pages
+  uses: peaceiris/actions-gh-pages@v3
+  with:
+   GITHUB_TOKEN : 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
+   publish_dir: ./build
