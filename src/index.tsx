@@ -6,7 +6,6 @@ import configureStore from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { HashRouter as Router } from "react-router-dom";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -15,9 +14,7 @@ export const store = configureStore();
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router basename={process.env.PUBLIC_URL}>
         <App />
-      </Router>
     </Provider>
   </React.StrictMode>
 );
