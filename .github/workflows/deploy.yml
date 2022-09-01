@@ -5,24 +5,22 @@ on:
      - main
 jobs:
  deploy:
-  name: deploy app
   runs-on: ubuntu-latest
   strategy:
    matrix:
     node-version: [ "12.x" ]
 steps:
   - uses: actions/checkout@v2
-  - uses: actions/setup-node@v1 
+  - name: use Node.js ${{ matrix.node-version }}
+    uses: actions/setup-node@v2
     with:
-      node-version: ${{matrix.node-version}}
+      node-version: ${{ matrix.node-version }}
 - name: install packages
   run: npm install
-- name: registry github user
-  run: |
-    git config --global user.email yandy.rdguez@gmail.com
-    git config --global user.name  Yandy Rodríguez Rodríguez
-
-- name: deploy the app
-  run: npm run deploy
-  env:
+- name: Build page
+  run: npm run build
+- name: deploy to gh-pages
+  uses: peaceiris/actions-gh-pages@v3
+  with:
    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+   publish_dir: ./build
