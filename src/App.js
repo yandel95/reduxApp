@@ -6,7 +6,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pagination from "./components/Pagination";
-//import data from "./components/mock.json";
 import { getUsers } from "./redux/actions/Users";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,7 +29,7 @@ const App = () => {
   }, [dispatch]);
 
   const currentCardData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
+    const firstPageIndex = (currentPage-1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return users.slice(firstPageIndex, lastPageIndex);
   }, [currentPage]);
